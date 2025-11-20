@@ -1,0 +1,34 @@
+{
+  "Comment": "Image resizing workflow",
+  "StartAt": "ResizeImage",
+  "States": {
+    "ResizeImage": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:928618161199:function:CapstoneImageResizer",
+      "Parameters": {
+        "bucket": "favour-capstone-originals",
+        "key": "Pretty 6.jpg"
+      },
+      "Next": "CheckResult"
+    },
+    "CheckResult": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.status",
+          "StringEquals": "success",
+          "Next": "SuccessState"
+        }
+      ],
+      "Default": "FailState"
+    },
+    "SuccessState": {
+      "Type": "Succeed"
+    },
+    "FailState": {
+      "Type": "Fail",
+      "Error": "ResizeFailed",
+      "Cause": "Image resizing failed"
+    }
+  }
+}
