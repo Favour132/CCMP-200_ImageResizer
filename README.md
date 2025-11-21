@@ -179,3 +179,5 @@ You can test the pipeline using AWS CLI and by invoking the API Gateway endpoint
 
 * Scalable and low-cost processing
 
+* Fully monitored using CloudWatch
+
